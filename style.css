@@ -14,7 +14,8 @@ html {
 
 body {
     font-family: "Segoe UI", sans-serif;
-    background: #f4f7fb;
+    /*background: #f4f7fb;*/
+    background: #09203f;
     color: #2d3748;
     line-height: 1.8;
     padding: 40px 20px;
@@ -51,7 +52,9 @@ header {
 }
 
 .page-title {
-    color: #1e293b;
+    background: -webkit-linear-gradient(#4481EB, #04BEFE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 3rem;
     font-weight: 700;
 }
@@ -253,12 +256,12 @@ ul li strong:first-child {
     }
 
     h2 {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         word-wrap: break-word;
     }
 
     h2 code {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         display: inline-block;
         margin-top: 4px;
         white-space: normal;
@@ -284,12 +287,16 @@ ul li strong:first-child {
     }
     
     pre code {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 
     .site-footer {
         padding: 30px 20px;
         margin-top: 40px;
+    }
+
+    .footer-subtitle {
+        font-size: 0.5rem;
     }
 }
 
