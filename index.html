@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Encadeada Simples</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer" />
+</head>
+<body>
+    <article id="375d916b-2b8c-8057-89ab-f9969e7ea1e0" class="page sans">
+        <header>
+            <h1 class="page-title" dir="auto">Lista Encadeada Simples</h1>
+			<p> Trabalho de Algotirmos e Estruturas de Dados</p>
+        </header>
+
+        <div class="page-body">
+            <section>
+                <h2>Como Funciona uma Lista Encadeada Simples?</h2>
+                <p>Uma <strong>Lista Encadeada Simples</strong> é uma estrutura de dados dinâmica e linear em que os elementos não ficam armazenados em posições contíguas (vizinhas) na memória. Em vez disso, cada elemento funciona como um "elo" de uma corrente, espalhado na memória e conectado ao próximo por meio de ponteiros.</p>
+            </section>
+
+            <section>
+                <h3>A Estrutura Base</h3>
+                <p>Diferente dos arrays (vetores), onde o acesso a qualquer elemento é instantâneo porque eles estão enfileirados na memória física, a lista encadeada exige que você <strong>percorra a estrutura a partir do primeiro elemento</strong> até encontrar o que deseja.</p>
+                
+                <p>Ela é composta por duas partes principais:</p>
+                <ol type="1">
+                    <li>
+                        <strong>Nó:</strong> É a unidade básica da lista. Cada nó é dividido internamente em duas partes:
+                        <ul>
+                            <li><strong>Dado/Carga:</strong> O valor real que você quer armazenar (um número, texto, objeto, etc.).</li>
+                            <li><strong>Ponteiro/Referência:</strong> O endereço de memória que aponta diretamente para onde está o próximo nó da sequência.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Início:</strong> Um ponteiro especial que guarda o endereço do primeiríssimo nó da lista. Se a cabeça apontar para o vazio (<code>None</code>), significa que a lista está completamente vazia.
+                    </li>
+                </ol>
+            </section>
+
+            <hr />
+
+            <main>
+                <h1>Funções de Ordenação</h1>
+
+                <section>
+                    <h2>1. <code>inserir_inicio(lista, dado)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Inserir um novo elemento no topo (começo) da lista encadeada, tornando-o o novo primeiro elemento.</p>
+                    
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>lista</code>: A instância da lista encadeada que sofrerá a alteração.</li>
+                        <li><code>dado</code>: O valor/informação que será armazenado no novo nó.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>A função cria um novo nó contendo o dado informado. Em seguida, aponta o próximo deste novo nó para o nó que atualmente ocupa o início da lista. Por fim, atualiza o início da lista para que passe a apontar para este novo nó.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def inserir_inicio(lista, dado):
+    novo_no = criar_no(dado)
+    novo_no.prox = lista.inicio
+    lista.inicio = novo_no</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>novo_no = criar_no(dado)</strong></code>: Aloca memória e inicializa um novo nó com o valor passado no parâmetro <code>dado</code>.</li>
+                        <li><code><strong>novo_no.prox = lista.inicio</strong></code>: Faz o ponteiro <code>prox</code> do novo nó apontar para o nó que estava no início da lista (mesmo que a lista estivesse vazia, ou seja, <code>None</code>).</li>
+                        <li><code><strong>lista.inicio = novo_no</strong></code>: Atualiza a cabeça (<code>inicio</code>) da lista para que ela agora reconheça o <code>novo_no</code> como o primeiro elemento.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Lista inicial: [A] -> [B] -> None
+inserir_inicio(minha_lista, "C")
+# Lista resultante: [C] -> [A] -> [B] -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1) (Tempo Constante) — Não importa o tamanho da lista, a inserção no início requer sempre o mesmo número de passos fixos.</li>
+                        <li><strong>Espacial:</strong> O(1) — Alocação de apenas um nó na memória.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>2. <code>inserir_fim(lista, dado)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Inserir um novo elemento no final da lista encadeada.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>lista</code>: A instância da lista.</li>
+                        <li><code>dado</code>: O valor a ser armazenado no final da lista.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>A função cria um novo nó. Se a lista estiver vazia, esse nó torna-se o início. Caso contrário, um ponteiro auxiliar (<code>cursor</code>) percorre a lista do início até encontrar o último nó (aquele cujo <code>prox</code> é <code>None</code>). Ao encontrá-lo, liga este último nó ao novo nó.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def inserir_fim(lista, dado):
+    novo_no = criar_no(dado)
+
+    if lista.inicio is None:
+        lista.inicio = novo_no
+        return
+
+    cursor = lista.inicio
+
+    while cursor.prox is not None:
+        cursor = cursor.prox
+
+    cursor.prox = novo_no</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>novo_no = criar_no(dado)</strong></code>: Cria o novo nó com o valor informado.</li>
+                        <li><code><strong>if lista.inicio is None:</strong></code>: Verifica se a lista está vazia.</li>
+                        <li><code><strong>lista.inicio = novo_no / return</strong></code>: Se estiver vazia, o novo nó torna-se o primeiro e a função é encerrada.</li>
+                        <li><code><strong>cursor = lista.inicio</strong></code>: Cria uma variável ponteiro apontando para o primeiro elemento para iniciar a varredura.</li>
+                        <li><code><strong>while cursor.prox is not None:</strong></code>: Laço que roda enquanto o próximo nó existir. Ele vai parar exatamente <strong>no último nó</strong> da lista.</li>
+                        <li><code><strong>cursor = cursor.prox</strong></code>: Avança o cursor para o próximo nó.</li>
+                        <li><code><strong>cursor.prox = novo_no</strong></code>: Conecta o antigo último nó ao <code>novo_no</code>, finalizando a inserção.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Lista inicial: [A] -> [B] -> None
+inserir_fim(minha_lista, "C")
+# Lista resultante: [A] -> [B] -> [C] -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(n) onde n é o número de elementos na lista. Como a lista não guarda uma referência direta para o fim, é preciso caminhar por todos os nós.</li>
+                        <li><strong>Espacial:</strong> O(1) — Memória extra usada apenas para o ponteiro auxiliar.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>3. <code>remover_inicio(lista)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Remover o primeiro elemento da lista encadeada.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>lista</code>: A instância da lista da qual o elemento será removido.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>Verifica se a lista não está vazia. Se houver elementos, o ponteiro de início da lista passa a apontar diretamente para o segundo elemento. O primeiro elemento perde a referência e é coletado pelo Garbage Collector da linguagem.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def remover_inicio(lista):
+    if lista.inicio is not None:
+        lista.inicio = lista.inicio.prox</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>if lista.inicio is not None:</strong></code>: Proteção de segurança para evitar erros caso a lista já esteja vazia.</li>
+                        <li><code><strong>lista.inicio = lista.inicio.prox</strong></code>: A lista "pula" o primeiro elemento, fazendo o <code>inicio</code> apontar para o que vinha logo em seguida.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Lista inicial: [A] -> [B] -> [C] -> None
+remover_inicio(minha_lista)
+# Lista resultante: [B] -> [C] -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1) (Tempo Constante) — A remoção exige apenas a reatribuição de um ponteiro.</li>
+                        <li><strong>Espacial:</strong> O(1) — Nenhuma estrutura de dados adicional é criada.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>4. <code>remover_fim(lista)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Remover o último elemento da lista encadeada.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>lista</code>: A instância da lista.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>Trata cenários de lista vazia ou com apenas um elemento. Para listas com dois ou mais elementos, percorre a lista com um <code>cursor</code> até encontrar o <strong>penúltimo</strong> nó. Ao encontrá-lo, quebra o vínculo com o último nó alterando o ponteiro do penúltimo para <code>None</code>.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def remover_fim(lista):
+    if lista.inicio is None:
+        return
+
+    if lista.inicio.prox is None:
+        lista.inicio = None
+        return
+
+    cursor = lista.inicio
+
+    while cursor.prox.prox is not None:
+        cursor = cursor.prox
+
+    cursor.prox = None</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>if lista.inicio is None: return</strong></code>: Se a lista estiver vazia, encerra a função.</li>
+                        <li><code><strong>if lista.inicio.prox is None:</strong></code>: Verifica se a lista possui apenas um elemento.</li>
+                        <li><code><strong>lista.inicio = None; return</strong></code>: Se possuir apenas um, esvazia a lista e encerra.</li>
+                        <li><code><strong>cursor = lista.inicio</strong></code>: Inicializa o ponteiro de busca a partir do começo.</li>
+                        <li><code><strong>while cursor.prox.prox is not None:</strong></code>: Faz o laço parar quando o <code>cursor</code> estiver sobre o <strong>penúltimo</strong> elemento.</li>
+                        <li><code><strong>cursor = cursor.prox</strong></code>: Avança o cursor.</li>
+                        <li><code><strong>cursor.prox = None</strong></code>: Desconecta o último elemento da lista.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Lista inicial: [A] -> [B] -> [C] -> None
+remover_fim(minha_lista)
+# Lista resultante: [A] -> [B] -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(n) — É obrigatório varrer a lista até o penúltimo elemento para conseguir remover o último.</li>
+                        <li><strong>Espacial:</strong> O(1) — Uso de memória auxiliar mínimo e constante.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>5. <code>pegar(lista, posicao)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Recuperar o dado contido em um nó localizado em uma posição/índice específico (indexação zero).</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>lista</code>: A instância da lista.</li>
+                        <li><code>posicao</code>: O índice numérico (inteiro) do elemento que deseja buscar.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>A função percorre a lista a partir do início guardando um contador (<code>indice</code>). Ela caminha nó por nó incrementando o contador. Se o contador igualar a <code>posicao</code> solicitada, o dado do nó atual é retornado. Se a lista terminar antes de encontrar a posição, retorna <code>None</code>.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def pegar(lista, posicao):
+    cursor = lista.inicio
+    indice = 0
+
+    while cursor is not None:
+        if indice == posicao:
+            return cursor.dado
+
+        cursor = cursor.prox
+        indice += 1
+
+    return None</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>cursor = lista.inicio</strong></code>: Inicia a navegação no primeiro nó.</li>
+                        <li><code><strong>indice = 0</strong></code>: Inicializa o contador de posição atual em 0.</li>
+                        <li><code><strong>while cursor is not None:</strong></code>: Garante o percurso seguro até o fim da lista.</li>
+                        <li><code><strong>if indice == posicao: return cursor.dado</strong></code>: Se a contagem bateu com o índice desejado, entrega o valor correspondente.</li>
+                        <li><code><strong>cursor = cursor.prox</strong></code>: Move para o próximo nó.</li>
+                        <li><code><strong>indice += 1</strong></code>: Incrementa o contador da posição atual.</li>
+                        <li><code><strong>return None</strong></code>: Caso a posição não tenha sido encontrada, retorna <code>None</code>.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Lista: [A] -> [B] -> [C] -> None (Posições: 0, 1, 2)
+resultado = pegar(minha_lista, 1)
+print(resultado) # Saída: "B"</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(n) — No pior caso, terá que andar por toda a lista.</li>
+                        <li><strong>Espacial:</strong> O(1) — Usa apenas variáveis simples de controle.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>6. <code>buscar_dado(lista, dado)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Localizar a posição (índice) da primeira ocorrência de um determinado valor dentro da lista.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>lista</code>: A instância da lista encadeada.</li>
+                        <li><code>dado</code>: O valor procurado dentro dos nós.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>Varre a lista a partir do início e compara o valor de cada nó com o valor procurado. Se achar, retorna o índice corrente. Se percorrer toda a lista e não encontrar, retorna <code>-1</code>.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def buscar_dado(lista, dado):
+    cursor = lista.inicio
+    indice = 0
+
+    while cursor is not None:
+        if cursor.dado == dado:
+            return indice
+
+        cursor = cursor.prox
+        indice += 1
+
+    return -1</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>cursor = lista.inicio / indice = 0</strong></code>: Prepara as variáveis de controle.</li>
+                        <li><code><strong>while cursor is not None:</strong></code>: Laço para caminhar pela lista até o fim.</li>
+                        <li><code><strong>if cursor.dado == dado: return indice</strong></code>: Se o conteúdo for o procurado, retorna o índice atual.</li>
+                        <li><code><strong>cursor = cursor.prox / indice += 1</strong></code>: Avança na lista física e na contagem numérica.</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+
+		<footer class="site-footer">
+			<p>
+				Desenvolvido por <strong>Jean Mendes</strong>
+			</p>
+
+			<p class="footer-subtitle">
+				Trabalho de Estruturas de Dados | Lista Encadeada Simples
+			</p>
+
+			<p class="footer-year">
+				© 2026
+			</p>
+		</footer>
+    </article>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha512-AKaNmg8COK0zEbjTdMHJAPJ0z6VeNqvRvH4/d5M4sHJbQQUToMBtodq4HaV4fa+WV2UTfoperElm66c9/8cKmQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+</body>
+</html>
