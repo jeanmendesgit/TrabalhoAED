@@ -226,29 +226,70 @@ ul li strong:first-child {
 ========================== */
 
 @media (max-width: 768px) {
-
     body {
-        padding: 15px;
+        padding: 10px;
+    }
+
+    .page {
+        border-radius: 12px;
     }
 
     .page-body {
-        padding: 25px;
+        padding: 20px 15px;
     }
 
     header {
-        padding: 40px 25px;
+        padding: 30px 20px;
     }
 
     .page-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
-    h1 {
-        font-size: 1.6rem;
+    main h1 {
+        font-size: 1.5rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
     }
 
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
+        word-wrap: break-word;
+    }
+
+    h2 code {
+        font-size: 1.1rem;
+        display: inline-block;
+        margin-top: 4px;
+        white-space: normal;
+    }
+
+    main section {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    h3 {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+    }
+
+    ul, ol {
+        margin-left: 20px;
+    }
+
+    pre {
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+    
+    pre code {
+        font-size: 0.85rem;
+    }
+
+    .site-footer {
+        padding: 30px 20px;
+        margin-top: 40px;
     }
 }
 
