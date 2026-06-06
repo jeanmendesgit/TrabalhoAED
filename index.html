@@ -320,6 +320,17 @@ print(resultado) # Saída: "B"</code></pre>
                         <li><code><strong>if cursor.dado == dado: return indice</strong></code>: Se o conteúdo for o procurado, retorna o índice atual.</li>
                         <li><code><strong>cursor = cursor.prox / indice += 1</strong></code>: Avança na lista física e na contagem numérica.</li>
                     </ul>
+					
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Lista: [A] -> [B] -> [C] -> None
+posicao = buscar_dado(minha_lista, "C")
+print(posicao) # Saída: 2</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(n) — Pode requerer a checagem de todos os nós caso o dado esteja no final ou não exista na lista.</li>
+                        <li><strong>Espacial:</strong> O(1) — Não utiliza memória proporcional ao número de elementos.</li>
+                    </ul>
                 </section>
             </main>
         </div>
