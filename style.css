@@ -15,9 +15,80 @@ html {
 body {
     font-family: "Segoe UI", sans-serif;
     background: #e7e9ec;
+    /*background: #09203f;*/
     color: #2d3748;
     line-height: 1.8;
     padding: 40px 20px;
+}
+
+/* ==========================
+   HUB
+========================== */
+
+.hub-container {
+    padding: 50px 40px;
+}
+
+.hub-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    color: #64748b;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 25px;
+}
+
+.study-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 30px;
+    text-decoration: none;
+    color: inherit;
+
+    transition: all .25s ease;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.05);
+}
+
+.study-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 25px rgba(37,99,235,.12);
+
+    border-color: #3b82f6;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    color: #2563eb;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.card-description {
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.coming-soon {
+    opacity: .7;
+    cursor: default;
+}
+
+.coming-soon:hover {
+    transform: none;
 }
 
 /* ==========================

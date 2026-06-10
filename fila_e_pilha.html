@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estruturas de Dados: Pilha e Fila</title>
+    <link rel="icon" type="image/ico" href="img/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer" />
+</head>
+<body>
+    <article id="375d916b-2b8c-8057-89ab-f9969e7ea1e0" class="page sans">
+        <header>
+            <h1 class="page-title" dir="auto">Pilha e Fila</h1>
+			<p>Estruturas de Dados</p>
+        </header>
+
+        <div class="page-body">
+            <section>
+                <h2>Como Funciona a Estrutura: Pilha (Stack)</h2>
+                <p>Uma <strong>Pilha</strong> é uma estrutura de dados linear e dinâmica que segue o princípio <strong>LIFO</strong> (<em>Last In, First Out</em> — Último a Entrar, Primeiro a Sair). Pense em uma pilha física de pratos: o último prato colocado no topo da pilha obrigatoriamente será o primeiro que você vai retirar.</p>
+            </section>
+
+            <section>
+                <h3>A Estrutura Base (Pilha)</h3>
+                <p>Todas as operações em uma pilha (inserção, remoção e consulta) acontecem em uma única extremidade, chamada de <strong>Topo</strong>.</p>
+                <p>O controle da estrutura é feito de forma simples por meio de uma única referência de entrada chamada <code>topo</code>.</p>
+            </section>
+
+            <hr />
+
+            <section>
+                <h2>Como Funciona a Estrutura: Fila (Queue)</h2>
+                <p>Uma <strong>Fila</strong> é uma estrutura de dados linear e dinâmica que segue o princípio <strong>FIFO</strong> (<em>First In, First Out</em> — Primeiro a Entrar, Primeiro a Sair). Imagine uma fila de banco: a primeira pessoa a chegar é, obrigatoriamente, a primeira a ser atendida.</p>
+            </section>
+
+            <section>
+                <h3>A Estrutura Base (Fila)</h3>
+                <p>Diferente de uma lista encadeada genérica, a Fila restringe os pontos de acesso:</p>
+                <ol type="1">
+                    <li>As inserções acontecem sempre no fim da estrutura.</li>
+                    <li>As remoções acontecem sempre no início da estrutura.</li>
+                </ol>
+                <p>Para tornar essas operações ultraeficientes, a estrutura Fila mantém dois ponteiros: o <code>inicio</code> e o <code>fim</code>.</p>
+            </section>
+
+            <hr />
+
+            <main>
+                <h1 class="section-divider">1. Funções da Pilha (Stack)</h1>
+
+                <section>
+                    <h2>1. <code>push(pilha, dado)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Adicionar (empilhar) um novo elemento no topo da pilha.</p>
+                    
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>pilha</code>: A instância da pilha que receberá o elemento.</li>
+                        <li><code>dado</code>: O valor a ser colocado no topo.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>Cria um novo nó para abrigar o dado. Esse novo nó aponta o seu ponteiro prox para o nó que atualmente ocupa o topo. Por fim, a estrutura atualiza a sua referência topo para reconhecer o novo nó instalado.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def push(pilha, dado):
+    novo_no = criar_no(dado)
+
+    novo_no.prox = pilha.topo
+    pilha.topo = novo_no</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>novo_no = criar_no(dado)</strong></code>: Fabrica um novo nó na memória contendo o dado informado.</li>
+                        <li><code><strong>novo_no.prox = pilha.topo</strong></code>: O ponteiro do novo nó passa a apontar para o antigo topo (se a pilha estava vazia, aponta para None).</li>
+                        <li><code><strong>pilha.topo = novo_no</strong></code>: O controle da pilha adota o novo_no como o seu novo e atual topo.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Pilha inicial: TOPO -> 20 -> 10 -> None
+push(pilha, 30)
+# Pilha resultante: TOPO -> 30 -> 20 -> 10 -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1) — Inserção direta na extremidade de controle, sem nenhuma iteração.</li>
+                        <li><strong>Espacial:</strong> O(1) — Espaço fixo para um novo nó.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>2. <code>pop(pilha)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Remover (desempilhar) e retornar o elemento que está posicionado no topo da pilha.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>pilha</code>: A instância da pilha.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>Examina se a pilha possui algum elemento. Se estiver vazia, retorna None. Se contiver dados, captura o valor do nó do topo, atualiza o indicador de topo para o próximo nó (prox) e faz a entrega do valor retirado.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def pop(pilha):
+    if pilha.topo is None:
+        return None
+
+    valor = pilha.topo.dado
+    pilha.topo = pilha.topo.prox
+
+    return valor</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>if pilha.topo is None: return None</strong></code>: Validação que previne erros de leitura em pilhas vazias (stack underflow).</li>
+                        <li><code><strong>valor = pilha.topo.dado</strong></code>: Armazena temporariamente a carga do nó do topo.</li>
+                        <li><code><strong>pilha.topo = pilha.topo.prox</strong></code>: Atualiza o topo da pilha para o elemento logo abaixo dele na estrutura.</li>
+                        <li><code><strong>return valor</strong></code>: Retorna o dado que acabou de ser desconectado.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Pilha inicial: TOPO -> 30 -> 20 -> None
+removido = pop(pilha)
+print(removido) # Saída: 30
+# Pilha resultante: TOPO -> 20 -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1) — Operação imediata de alteração de ponteiros.</li>
+                        <li><strong>Espacial:</strong> O(1) — Sem consumo extra de memória proporcional à estrutura.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>3. <code>peek(pilha)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Visualizar/Espiar o valor que está no topo da pilha, sem desestruturá-la (sem remover o nó).</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>pilha</code>: A instância da pilha.</li>
+                    </ul>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def peek(pilha):
+    if pilha.topo is None:
+        return None
+
+    return pilha.topo.dado</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>if pilha.topo is None: return None</strong></code>: Retorna nulo se não houver elementos empilhados.</li>
+                        <li><code><strong>return pilha.topo.dado</strong></code>: Acessa a carga útil do nó atual do topo e a retorna, deixando a pilha exatamente como estava.</li>
+                    </ul>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1)</li>
+                        <li><strong>Espacial:</strong> O(1)</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>4. <code>imprimir_pilha(pilha)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Percorrer toda a extensão da pilha exibindo visualmente os dados de cada nó, partindo do topo até a base da estrutura.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>pilha</code>: A instância da pilha que será impressa.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>A função cria uma referência temporária (<code>cursor</code>) apontando para o topo da pilha. Ela imprime o rótulo indicativo do topo e entra em um laço de repetição que continua enquanto o cursor apontar para um nó válido. A cada iteração, exibe o dado do nó atual em uma nova linha e avança o cursor para o próximo elemento abaixo dele na estrutura.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def imprimir_pilha(pilha):
+    cursor = pilha.topo
+
+    print("TOPO")
+
+    while cursor is not None:
+        print(cursor.dado)
+        cursor = cursor.prox
+
+    print("\n")</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>cursor = pilha.topo</strong></code>: Inicializa o ponteiro auxiliar na extremidade de controle (o elemento que está no topo).</li>
+                        <li><code><strong>print("TOPO")</strong></code>: Imprime o rótulo textual identificando o início da exibição a partir do topo da pilha.</li>
+                        <li><code><strong>while cursor is not None:</strong></code>: Cria um loop seguro que rodará até que todos os nós empilhados sejam visitados.</li>
+                        <li><code><strong>print(cursor.dado)</strong></code>: Exibe o valor do nó atual e quebra a linha automaticamente, simulando o aspecto vertical da pilha.</li>
+                        <li><code><strong>cursor = cursor.prox</strong></code>: Move o cursor para o próximo nó localizado logo abaixo na estrutura.</li>
+                        <li><code><strong>print("\n")</strong></code>: Imprime uma quebra de linha adicional para espaçamento e organização no console.</li>
+                    </ul>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(n) — Onde <em>n</em> é o número de elementos empilhados. É necessário caminhar e visitar cada um dos nós individualmente para imprimi-los.</li>
+                        <li><strong>Espacial:</strong> O(1) — Consumo de memória fixo e constante, fazendo uso apenas da variável local de ponteiro (<code>cursor</code>).</li>
+                    </ul>
+                </section>
+
+                <h1 class="section-divider">2. Funções da Fila (Queue)</h1>
+
+                <section>
+                    <h2>1. <code>enqueue(fila, dado)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Adicionar (enfileirar) um novo elemento no final da fila.</p>
+                    
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>fila</code>: A instância da fila que receberá o elemento.</li>
+                        <li><code>dado</code>: O valor a ser armazenado.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>A função cria um novo nó. Se a fila estiver vazia, esse novo nó passa a ser, simultaneamente, o inicio e o fim da fila. Caso a fila já possua elementos, o nó que estava no fim aponta seu ponteiro prox para o novo nó, e o ponteiro fim da fila é atualizado para este recém-chegado.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def enqueue(fila, dado):
+    novo_no = criar_no(dado)
+
+    if fila.inicio is None:
+        fila.inicio = novo_no
+        fila.fim = novo_no
+        return
+
+    fila.fim.prox = novo_no
+    fila.fim = novo_no</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>novo_no = criar_no(dado)</strong></code>: Aloca memória e inicializa um novo nó com a carga útil (dado).</li>
+                        <li><code><strong>if fila.inicio is None:</strong></code>: Verifica se a fila está completamente vazia.</li>
+                        <li><code><strong>fila.inicio = novo_no / fila.fim = novo_no</strong></code>: Se vazia, o novo nó ocupa o único posto disponível, sendo o começo e o fim.</li>
+                        <li><code><strong>return</strong></code>: Sai da função precocemente pois o trabalho já foi feito.</li>
+                        <li><code><strong>fila.fim.prox = novo_no</strong></code>: Faz o atual último nó apontar para o novo_no.</li>
+                        <li><code><strong>fila.fim = novo_no</strong></code>: Atualiza a referência de controle da fila para que o novo_no seja oficialmente o novo fim.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Fila inicial: INÍCIO -> 10 -> 20 (FIM) -> None
+enqueue(fila, 30)
+# Fila resultante: INÍCIO -> 10 -> 20 -> 30 (FIM) -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1) (Tempo Constante) — Graças ao ponteiro fim, não precisamos percorrer a estrutura toda para inserir no final.</li>
+                        <li><strong>Espacial:</strong> O(1) — Alocação de apenas um nó.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>2. <code>dequeue(fila)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Remover (desenfileirar) e retornar o elemento que está na frente (início) da fila.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>fila</code>: A instância da fila.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>Verifica se a fila possui elementos. Se estiver vazia, retorna None. Caso contrário, guarda o valor do primeiro nó, avança o ponteiro de inicio para o próximo nó da sequência e, se após essa remoção a fila ficar vazia, limpa também o ponteiro fim. Por fim, retorna o dado removido.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def dequeue(fila):
+    if fila.inicio is None:
+        return None
+
+    valor = fila.inicio.dado
+
+    fila.inicio = fila.inicio.prox
+
+    if fila.inicio is None:
+        fila.fim = None
+
+    return valor</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>if fila.inicio is None: return None</strong></code>: Tratamento de erro para evitar operações de leitura em filas vazias.</li>
+                        <li><code><strong>valor = fila.inicio.dado</strong></code>: Salva temporariamente o dado do nó que será removido para poder retorná-lo depois.</li>
+                        <li><code><strong>fila.inicio = fila.inicio.prox</strong></code>: Move a cabeça da fila para o segundo elemento, isolando o primeiro.</li>
+                        <li><code><strong>if fila.inicio is None: fila.fim = None</strong></code>: Se após a remoção a fila ficou vazia, o ponteiro fim também deve ser limpo.</li>
+                        <li><code><strong>return valor</strong></code>: Devolve o valor que estava no início.</li>
+                    </ul>
+
+                    <h3>Exemplo de Uso</h3>
+                    <pre><code class="language-python"># Fila inicial: INÍCIO -> 10 -> 20 -> None
+removido = dequeue(fila)
+print(removido) # Saída: 10
+# Fila resultante: INÍCIO -> 20 -> None</code></pre>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1) — A operação ocorre direto na cabeça (inicio), sem loops.</li>
+                        <li><strong>Espacial:</strong> O(1) — Apenas variáveis locais para retenção do dado.</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>3. <code>front(fila)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Espiar/Exibir qual é o primeiro elemento da fila, sem removê-lo.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>fila</code>: A instância da fila.</li>
+                    </ul>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def front(fila):
+    if fila.inicio is None:
+        return None
+
+    return fila.inicio.dado</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>if fila.inicio is None: return None</strong></code>: Se a fila não contiver nós, retorna None.</li>
+                        <li><code><strong>return fila.inicio.dado</strong></code>: Acessa a carga útil do nó de início e a retorna, mantendo os ponteiros intactos.</li>
+                    </ul>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(1)</li>
+                        <li><strong>Espacial:</strong> O(1)</li>
+                    </ul>
+                </section>
+
+                <hr />
+
+                <section>
+                    <h2>4. <code>imprimir_fila(fila)</code></h2>
+                    <h3>Objetivo</h3>
+                    <p>Percorrer toda a extensão da fila exibindo visualmente os dados de cada nó do início até o final da sequência.</p>
+
+                    <h3>Parâmetros</h3>
+                    <ul>
+                        <li><code>fila</code>: A instância da fila que será impressa.</li>
+                    </ul>
+
+                    <h3>Funcionamento</h3>
+                    <p>A função cria uma referência temporária (<code>cursor</code>) apontando para o início da fila. Ela imprime a tag textual de início e entra em um laço de repetição enquanto o cursor for diferente de vazio. A cada rodada, exibe o dado do nó atual seguido de uma seta indicativa e avança o ponteiro para o próximo elo. Ao final do percurso, encerra a linha indicando o fechamento do encadeamento com <code>None</code>.</p>
+
+                    <h3>Implementação (Python)</h3>
+                    <pre><code class="language-python">def imprimir_fila(fila):
+    cursor = fila.inicio
+    print("INÍCIO -> ", end="")
+
+    while cursor is not None:
+        print(cursor.dado, end=" -> ")
+        cursor = cursor.prox
+
+    print("None\n")</code></pre>
+
+                    <h3>Detalhamento Linha a Linha</h3>
+                    <ul>
+                        <li><code><strong>cursor = fila.inicio</strong></code>: Inicializa o ponteiro auxiliar na linha de largada (primeiro elemento).</li>
+                        <li><code><strong>print("INÍCIO -> ", end="")</strong></code>: Imprime o rótulo inicial sem quebrar a linha do console.</li>
+                        <li><code><strong>while cursor is not None:</strong></code>: Cria um loop estrutural seguro que rodará até ultrapassar o último nó existente.</li>
+                        <li><code><strong>print(cursor.dado, end=" -> ")</strong></code>: Imprime a informação útil guardada no nó atual junto ao marcador de ponteiro.</li>
+                        <li><code><strong>cursor = cursor.prox</strong></code>: Move o cursor adiante na memória, fazendo-o assumir o próximo nó da fila.</li>
+                        <li><code><strong>print("None\n")</strong></code>: Imprime a indicação de fim de estrutura e quebra a linha do terminal.</li>
+                    </ul>
+
+                    <h3>Complexidade</h3>
+                    <ul>
+                        <li><strong>Temporal:</strong> O(n) — Onde <em>n</em> é a quantidade de elementos na fila. É obrigatório passar por todos os nós individualmente para exibi-los na tela.</li>
+                        <li><strong>Espacial:</strong> O(1) — Consumo de memória fixo, pois utiliza apenas a variável local <code>cursor</code> para realizar o rastreamento.</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+
+		<footer class="site-footer">
+			<p>
+				Desenvolvido por <strong>Jean Mendes</strong>
+			</p>
+			<p class="footer-subtitle">
+				Estruturas de Dados | Pilha (Stack) & Fila (Queue)
+			</p>
+			<p class="footer-year">
+				© 2026
+			</p>
+		</footer>
+    </article>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha512-AKaNmg8COK0zEbjTdMHJAPJ0z6VeNqvRvH4/d5M4sHJbQQUToMBtodq4HaV4fa+WV2UTfoperElm66c9/8cKmQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+</body>
+</html>
