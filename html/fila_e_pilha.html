@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estruturas de Dados: Pilha e Fila</title>
     <link rel="icon" type="image/ico" href="img/favicon.ico">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer" />
 </head>
 <body>
@@ -45,9 +45,75 @@
                 <p>Para tornar essas operações ultraeficientes, a estrutura Fila mantém dois ponteiros: o <code>inicio</code> e o <code>fim</code>.</p>
             </section>
 
-            <hr />
+        <hr />
 
-            <main>
+        <main>
+            <h1 class="section-divider">0. Estruturas Auxiliares (Classes e Nós)</h1>
+        
+
+            <section>
+                <h2>A Estrutura do Nó e Construtor</h2>
+                <p>O nó é a unidade básica de armazenamento. Cada nó carrega seu próprio dado e uma referência para o próximo elemento vizinho.</p>
+
+                <h3>Implementação (Python)</h3>
+                <pre><code class="language-python">class No:
+    dado = None
+    prox = None
+
+def criar_no(dado):
+    novo_no = No()
+    novo_no.dado = dado
+    return novo_no</code></pre>
+
+                <h3>Detalhamento</h3>
+                <ul>
+                    <li><code><strong>dado = None</strong></code>: Campo que armazena a informação útil.</li>
+                    <li><code><strong>prox = None</strong></code>: Ponteiro de encadeamento (indica o próximo nó).</li>
+                    <br>
+                    <li><code><strong>criar_no(dado)</strong></code>: Função utilitária que aloca o nó e já injeta o valor inicial, retornando a referência pronta.</li>
+                    <li><code><strong>novo_no = No()</strong></code>: Cria um nó vazio na memória com os campos <code>dado</code> e <code>prox</code> valendo <code>None</code>.</li>
+                    <li><code><strong>novo_no.dado = dado</strong></code>: Salva o valor recebido por parâmetro dentro do campo <code>dado</code> do novo nó.</li>
+                    <li><code><strong>return novo_no</strong></code>: Devolve o nó pronto e preenchido para ser usado pelas funções.</li>
+                </ul>
+            </section>
+
+            <section>
+    <h2>Classes de Controle e Inicialização</h2>
+    <p>Essas classes funcionam como os <strong>gerentes</strong> das estruturas. Elas não guardam os dados diretamente, apenas guardam os ponteiros (referências) estratégicos para sabermos onde a estrutura começa e termina.</p>
+
+    <h3>Implementação e Criação (Python)</h3>
+    <pre><code class="language-python">class Pilha:
+    topo = None
+
+class Fila:
+    inicio = None
+    fim = None
+
+# Inicializando uma pilha vazia pronta para o uso
+pilha = Pilha() 
+
+# Inicializando uma fila vazia pronta para o uso
+fila = Fila()</code></pre>
+
+    <h3>Detalhamento das Classes</h3>
+    <ul>
+        <li><code><strong>Pilha.topo</strong></code>: É o único ponto de controle da pilha. Guarda a referência do nó que está no topo.</li>
+        <br>
+        <li><code><strong>Fila.inicio</strong></code>: Aponta para o primeiro nó da fila.</li>
+        <li><code><strong>Fila.fim</strong></code>: Aponta para o último nó da fila.</li>
+    </ul>
+
+    <h3>Detalhamento da Inicialização</h3>
+    <blockquote>
+        <strong class="notice">❕</strong> Definir a classe não cria a estrutura na memória. É necessário <strong>instanciá-la</strong> (criar a variável) antes de usar as funções de manipulação.
+    </blockquote>
+    <ul>
+        <li><code><strong>pilha = Pilha()</strong></code>: Cria efetivamente o objeto gerenciador da sua pilha na memória. É exatamente essa variável <code>pilha</code> que você passará como primeiro argumento ao chamar as funções <code>push(pilha, dado)</code>, <code>pop(pilha)</code> e <code>imprimir_pilha(pilha)</code>.</li>
+        <li><code><strong>fila = Fila()</strong></code>: Cria o objeto gerenciador da sua fila. Será a variável utilizada como argumento para as funções <code>enqueue(fila, dado)</code>, <code>dequeue(fila)</code> e <code>imprimir_fila(fila)</code>.</li>
+    </ul>
+</section>
+
+<hr />
                 <h1 class="section-divider">1. Funções da Pilha (Stack)</h1>
 
                 <section>
